@@ -24,7 +24,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     Validation validationCheck=new Validation();
-    SignUp Sifrele=new SignUp();
+    encryption Sifrele=new encryption();
     TextView _name, _username, _email, _response,_pass,_surname;
     android.support.v7.widget.AppCompatButton _sendRequest;
 
@@ -41,28 +41,19 @@ public class MainActivity extends AppCompatActivity {
         _response = (TextView) findViewById(R.id.response);
         _sendRequest = (AppCompatButton) findViewById(R.id.send_request);
 
-        _response.setText("Deneme");
         //hooking onclick listener of button
         _sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*GENELLENECEK -*/
+                /*validations -*/
                 int errorCount=1;
-                if (!validationCheck.isValidEmail(_email.getText().toString())) {
-                    _email.setError("Geçersiz E-Mail");
-                    errorCount=0;
-                }
-                if (!validationCheck.isValidPass(_pass.getText().toString())) {
-                    _pass.setError("Şifre 6-16 Karakter Olmalıdır");
-                    errorCount=0;
-                }
-                if (!validationCheck.isValidFullName(_name.getText().toString())) {
-                    _name.setError("Full Name 6-30 Karakter Olmalıdır");
-                    errorCount=0;
-                }
-                /*GENELLECEK +*/
-                if(errorCount==1)
-                {
+                if (!validationCheck.isValidEmail(_email.getText().toString())) {_email.setError("Geçersiz E-Mail");errorCount=0;}
+                if (!validationCheck.isValidPass(_pass.getText().toString())) {_pass.setError("Şifre 6-16 Karakter Olmalıdır ve En Az Bir Harf ve Bir Rakam İçermelidir");errorCount=0;}
+                if (!validationCheck.isValidFullName(_name.getText().toString())) {_name.setError("Full Name 6-30 Karakter Olmalıdır");errorCount=0;}
+                if(!validationCheck.isAlpha(_name.getText().toString())) {_name.setError("İsminiz Yalnızca Harflerden Oluşmalıdır");errorCount=0;}
+                /*validations +*/
+
+                if(errorCount==1) {
                 final String sifrem = (Sifrele.md5(_pass.getText().toString()).toString());
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
@@ -99,16 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 };
                 // Add the request to the RequestQueue.
                 queue.add(stringRequest);
-                if(true) {
-
+                if(_response.toString()=="Veri Eklendi") {
                     Intent i = new Intent(getBaseContext(), WelcomeActivity.class);
-
                     startActivity(i);
-
                     finish();
+                    }
                 }
-                }
-
             }
         });
     }

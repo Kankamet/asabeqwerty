@@ -1,14 +1,13 @@
 package com.example.kankamet.asabeqwerty;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Created by Kankamet on 4.11.2017.
  */
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-
-public class SignUp {
+public class encryption {
     public static final String md5(final String password) {
         try {
 

@@ -24,13 +24,10 @@ public class Validation {
     }
 
     public boolean isValidPass(String pass) {
-        if (pass != null && pass.length() >= 6  && pass.length()<=16) {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        String PASS_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,16}$";
+        Pattern pattern = Pattern.compile(PASS_PATTERN);
+        Matcher matcher = pattern.matcher(pass);
+        return matcher.matches();
     }
     public boolean isValidFullName(String fullName) {
         if (fullName != null && fullName.length() >= 6  && fullName.length()<=30) {
@@ -40,5 +37,8 @@ public class Validation {
         {
             return false;
         }
+    }
+    public boolean isAlpha(String name) {
+        return name.matches("^\\s*[a-zA-Z,ç,Ç,ğ,Ğ,ı,İ,ö,Ö,ş,Ş,ü,Ü,\\s]+\\s*$");
     }
 }
