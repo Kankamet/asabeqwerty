@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        _response.setText("LoginThat didn't work!");
+                        _response.setText("That didn't work!");
                     }
                 }) {
                     //adding parameters to the request

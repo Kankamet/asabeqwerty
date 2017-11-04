@@ -88,6 +88,7 @@
             android:layout_below="@+id/name"
             android:layout_marginTop="13dp"
             android:hint="Your Username"
+            android:maxLength="10"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="130dp" />

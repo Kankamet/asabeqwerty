@@ -1,6 +1,7 @@
 package com.example.kankamet.asabeqwerty;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    Validation validationCheck=new Validation();
     SignUp Sifrele=new SignUp();
     TextView _name, _username, _email, _response,_pass,_surname;
     android.support.v7.widget.AppCompatButton _sendRequest;
@@ -39,13 +41,28 @@ public class MainActivity extends AppCompatActivity {
         _response = (TextView) findViewById(R.id.response);
         _sendRequest = (AppCompatButton) findViewById(R.id.send_request);
 
-
+        _response.setText("Deneme");
         //hooking onclick listener of button
         _sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ad=_name.getText().toString();
-
+                /*GENELLENECEK -*/
+                int errorCount=1;
+                if (!validationCheck.isValidEmail(_email.getText().toString())) {
+                    _email.setError("Geçersiz E-Mail");
+                    errorCount=0;
+                }
+                if (!validationCheck.isValidPass(_pass.getText().toString())) {
+                    _pass.setError("Şifre 6-16 Karakter Olmalıdır");
+                    errorCount=0;
+                }
+                if (!validationCheck.isValidFullName(_name.getText().toString())) {
+                    _name.setError("Full Name 6-30 Karakter Olmalıdır");
+                    errorCount=0;
+                }
+                /*GENELLECEK +*/
+                if(errorCount==1)
+                {
                 final String sifrem = (Sifrele.md5(_pass.getText().toString()).toString());
                 // Instantiate the RequestQueue.
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
@@ -64,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        _response.setText("MainThat didn't work!");
+                        _response.setText("That didn't work!");
                     }
                 }) {
                     //adding parameters to the request
@@ -82,8 +99,17 @@ public class MainActivity extends AppCompatActivity {
                 };
                 // Add the request to the RequestQueue.
                 queue.add(stringRequest);
+                if(true) {
+
+                    Intent i = new Intent(getBaseContext(), WelcomeActivity.class);
+
+                    startActivity(i);
+
+                    finish();
+                }
+                }
+
             }
         });
-
     }
 }
