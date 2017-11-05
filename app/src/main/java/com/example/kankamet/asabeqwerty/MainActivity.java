@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +42,59 @@ public class MainActivity extends AppCompatActivity {
         _pass = (EditText) findViewById(R.id.pass);
         _response = (TextView) findViewById(R.id.response);
         _sendRequest = (AppCompatButton) findViewById(R.id.send_request);
+
+        /* BU KOD DENENECEK - */
+        _username.addTextChangedListener(new TextWatcher() {
+
+            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+            String url = "http://emirhanpervanlar.com/project/pets/pets/rest_test2.php";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //Kullanıcı Adını Gönder Varsa Hata Ver..
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the response string.
+                                _response.setText(response);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        _response.setText("That didn't work!");
+                    }
+                }) {
+                    //adding parameters to the request
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("token", "a153dd6s33xv6uy9hgf23b16gh");
+                        params.put("username", _username.getText().toString());
+                        //params.put("email", _email.getText().toString());
+                        return params;
+                    }
+                };
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+                if(_response.getText().toString()=="false")
+                {
+                    _username.setError("Kullanıcı Adı Alınmış");
+                }
+            }
+        });
+
+        /* BU KOD DENENECEK + */
 
         //hooking onclick listener of button
         _sendRequest.setOnClickListener(new View.OnClickListener() {
