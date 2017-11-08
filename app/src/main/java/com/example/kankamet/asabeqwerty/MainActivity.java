@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 if(_response.getText().toString()=="false")
                 {
                     _username.setError("Kullanıcı Adı Alınmış");
+                    //
                 }
             }
         });
