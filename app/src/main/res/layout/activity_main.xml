@@ -13,17 +13,6 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="82dp">
 
-        <TextView
-            android:id="@+id/response"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="29dp" />
-
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/send_request"
             android:layout_width="match_parent"

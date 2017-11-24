@@ -7,11 +7,6 @@ import java.util.regex.Pattern;
  * Created by Kankamet on 4.11.2017.
  */
 
-    // full name max=30 min =6
-    //username min 6 max 10
-    //min password 6 max 16
-
-
 
 public class Validation {
     public boolean isValidEmail(String email) {
@@ -40,5 +35,17 @@ public class Validation {
     }
     public boolean isAlpha(String name) {
         return name.matches("^\\s*[a-zA-Z,ç,Ç,ğ,Ğ,ı,İ,ö,Ö,ş,Ş,ü,Ü,\\s]+\\s*$");
+    }
+
+    public boolean isUserNameCorrect(String username)
+    {
+        if(username.length()>=5)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
